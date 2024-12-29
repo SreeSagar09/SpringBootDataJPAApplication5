@@ -1,0 +1,71 @@
+A Program to show how to work with @Query annotation:
+Programs:
+* SpringBootDataJPAApplication5Application.java
+* Employee.java
+* EmployeeRepository.java
+* TestRunner.java
+Notes:
+* The @Query annotation is used to write select queries directly on repository methods.
+* This annotation can be used at method level and annotation level also.
+* The @Query annotation will accept some parameters those are value, countQuery, countProjection, nativeQuery, name and countName.
+* The value attribute is used to write JQL query, it accept String type and default value is empty string.
+* If we give value attribute is empty string it will compile time error.
+* The countQuery attribute is used to write count JQL query, it accept String type and default value is empty string.
+* The countProjection attribute is used to write count JQL projection, it accept String type and default value is empty string.
+* The nativeQuery attribute is used to configure whether the given query is native query or not, it accept boolean type and default value is false.
+* When we write query with index parameters, the parameters should start from one only other wise it will throw exception 'org.springframework.data.repository.query.ParameterOutOfBoundsException' exception.
+* when we write query with named parameters, the named parameters name and method argument name should match other wise it will throw 'java.lang.IllegalStateException' exception.
+* The @Param annotation is used to bind method parameters to a query via a named parameter.
+Output:
+From run method in TestRunner class.
+---- To get record by getEmployeeByEmployeeId(Integer employeeId) method ----
+Hibernate: select employee0_.employee_id as employee1_0_, employee0_.age as age2_0_, employee0_.designation as designat3_0_, employee0_.employee_code as employee4_0_, employee0_.employee_name as employee5_0_ from employee employee0_ where employee0_.employee_id=?
+1 --> Sree Sagar[A001]
+---- To get records by getEmployeeByEmployeeId(Integer employeeId) method ----
+Hibernate: select employee0_.employee_id as employee1_0_, employee0_.age as age2_0_, employee0_.designation as designat3_0_, employee0_.employee_code as employee4_0_, employee0_.employee_name as employee5_0_ from employee employee0_ where employee0_.employee_name=?
+3 --> Pavan[A003]
+5 --> Pavan[A005]
+---- To get records by getEmployeesByEmployeeNameAndDesignation(String employeeName, String designation) method ----
+Hibernate: select employee0_.employee_id as employee1_0_, employee0_.age as age2_0_, employee0_.designation as designat3_0_, employee0_.employee_code as employee4_0_, employee0_.employee_name as employee5_0_ from employee employee0_ where employee0_.employee_name=? and employee0_.designation=?
+3 --> Pavan[A003]
+5 --> Pavan[A005]
+---- To get records by getEmployeesByEmployeeCodeAndEmployeeName(String employeeCode, String employeeName) method ----
+Hibernate: select employee0_.employee_id as employee1_0_, employee0_.age as age2_0_, employee0_.designation as designat3_0_, employee0_.employee_code as employee4_0_, employee0_.employee_name as employee5_0_ from employee employee0_ where employee0_.employee_code=? and employee0_.employee_name=?
+2 --> Sathish[A002]
+---- To get records by getEmployeesAgeLessthenOrEqual(@Param(value = "age") Integer employeeAge) method ----
+Hibernate: select employee0_.employee_id as employee1_0_, employee0_.age as age2_0_, employee0_.designation as designat3_0_, employee0_.employee_code as employee4_0_, employee0_.employee_name as employee5_0_ from employee employee0_ where employee0_.age<=? order by employee0_.age desc
+2 --> Sathish[A002] --> 27
+5 --> Pavan[A005] --> 27
+6 --> Rakesh[A006] --> 27
+3 --> Pavan[A003] --> 26
+---- To get records by getAllEmployeeNames() method ----
+Hibernate: select employee0_.employee_name as col_0_0_ from employee employee0_ order by employee0_.employee_name
+Aravind
+Pavan
+Pavan
+Rakesh
+Sathish
+Sree Sagar
+---- To get records by getAllEmployeeIdsAndEmployeeNames() method ----
+Hibernate: select employee0_.employee_id as col_0_0_, employee0_.employee_name as col_1_0_ from employee employee0_ order by employee0_.employee_name asc
+4 --> Aravind
+3 --> Pavan
+5 --> Pavan
+6 --> Rakesh
+2 --> Sathish
+1 --> Sree Sagar
+---- To get records by getAllEmployeeIdAndEmployeeCodeAndEmployeeName() method ----
+Hibernate: select employee0_.employee_id as col_0_0_, employee0_.employee_code as col_1_0_, employee0_.employee_name as col_2_0_ from employee employee0_
+1 --> Sree Sagar[A001]
+2 --> Sathish[A002]
+3 --> Pavan[A003]
+4 --> Aravind[A004]
+5 --> Pavan[A005]
+6 --> Rakesh[A006]
+---- To get records by countOfEmployees() method ----
+Hibernate: select count(employee0_.employee_id) as col_0_0_ from employee employee0_
+6
+---- To get records by averageOfEmployeeAges() method ----
+Hibernate: select avg(employee0_.age) as col_0_0_ from employee employee0_
+27
+From main method in SpringBootDataJPAApplication5Application class.
