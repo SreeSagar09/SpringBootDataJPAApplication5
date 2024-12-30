@@ -67,5 +67,5 @@ Hibernate: select count(employee0_.employee_id) as col_0_0_ from employee employ
 6
 ---- To get records by averageOfEmployeeAges() method ----
 Hibernate: select avg(employee0_.age) as col_0_0_ from employee employee0_
-27
+27.5
 From main method in SpringBootDataJPAApplication5Application class.

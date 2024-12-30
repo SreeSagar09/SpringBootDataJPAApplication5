@@ -37,8 +37,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	public List<Employee> getAllEmployeeIdAndEmployeeCodeAndEmployeeName();
 	
 	@Query(value = "select count(e.employeeId) from Employee e")
-	public Integer countOfEmployees();
+	public Long countOfEmployees();
 	
 	@Query(value = "select avg(e.age) from Employee e")
-	public Integer averageOfEmployeeAges();
+	public Double averageOfEmployeeAges();
 }

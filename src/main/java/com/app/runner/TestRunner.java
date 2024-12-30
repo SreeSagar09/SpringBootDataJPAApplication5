@@ -69,11 +69,11 @@ public class TestRunner implements ApplicationRunner{
 		});
 		
 		System.out.println("---- To get records by countOfEmployees() method ----");
-		Integer employeeCount1 = employeeRepository.countOfEmployees();
+		Long employeeCount1 = employeeRepository.countOfEmployees();
 		System.out.println(employeeCount1);
 		
 		System.out.println("---- To get records by averageOfEmployeeAges() method ----");
-		Integer employeeAverageAge1 = employeeRepository.averageOfEmployeeAges();
+		Double employeeAverageAge1 = employeeRepository.averageOfEmployeeAges();
 		System.out.println(employeeAverageAge1);
 	}
 
